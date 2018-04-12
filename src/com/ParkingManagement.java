@@ -12,7 +12,7 @@ public class ParkingManagement implements VehicleParking{
         
      Scanner s=new Scanner(System.in); 
     @Override
-    public boolean addVehicleTOSlot(Vehicle v)throws InvalidSlotException, InvalidTypeException, SlotNotFoundException{               
+    public boolean addVehicleTOSlot(Vehicle v)throws InvalidSlotException, SlotNotFoundException{               
         Owner o = new Owner();
         
         
@@ -32,8 +32,8 @@ public class ParkingManagement implements VehicleParking{
         if(type.equalsIgnoreCase("TwoWheeler")||type.equalsIgnoreCase("Car")||type.equalsIgnoreCase("Truck")){
             v.setVehicleType(type);
             
-        } else {
-            throw new InvalidTypeException("Invalid Vehicle");
+        }
+        
         }
         
         
