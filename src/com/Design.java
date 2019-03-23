@@ -1,9 +1,10 @@
 package com;
 
+import java.sql.SQLException;
 
 @SuppressWarnings("serial")
 public class Design extends javax.swing.JFrame{
-	logic l=new logic();
+	Logic l=new Logic();
 	  // Variables declaration - do not modify                     
     private javax.swing.JButton addB;
     private javax.swing.JButton vehicleB;
@@ -111,7 +112,8 @@ public class Design extends javax.swing.JFrame{
 	        addB.setText("Add Vehicle");
 	        addB.setName("addB"); // NOI18N
 	        addB.addActionListener(new java.awt.event.ActionListener() {
-	            public void actionPerformed(java.awt.event.ActionEvent evt) {
+	            @Override
+				public void actionPerformed(java.awt.event.ActionEvent evt) {
 	                addBActionPerformed(evt);
 	            }
 	        });
@@ -119,7 +121,8 @@ public class Design extends javax.swing.JFrame{
 	        vehicleB.setText("All Vehicle Details");
 	        vehicleB.setName("vehicleB"); // NOI18N
 	        vehicleB.addActionListener(new java.awt.event.ActionListener() {
-	            public void actionPerformed(java.awt.event.ActionEvent evt) {
+	            @Override
+				public void actionPerformed(java.awt.event.ActionEvent evt) {
 	                vehicleBActionPerformed(evt);
 	            }
 	        });
@@ -134,7 +137,7 @@ public class Design extends javax.swing.JFrame{
 	        });
 
 	        contentP.setName("contentP"); // NOI18N
-	        contentP.setVisible(false);
+	        contentP.setVisible(true);
 	        
 	        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 	        jLabel2.setText("Add Vehicle information");
@@ -157,10 +160,11 @@ public class Design extends javax.swing.JFrame{
 	        submit.setText("Submit");
 	        submit.setName("submit"); // NOI18N
 	        submit.addActionListener(new java.awt.event.ActionListener() {
-	            public void actionPerformed(java.awt.event.ActionEvent evt) {
+	            @Override
+				public void actionPerformed(java.awt.event.ActionEvent evt) {
 	                try {
 						submitActionPerformed(evt);
-					} catch (InvalidVehicleException | InvalidSlotException e) {
+					} catch (InvalidVehicleException | InvalidSlotException | SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
@@ -226,7 +230,8 @@ public class Design extends javax.swing.JFrame{
 
 	        jButton5.setText("ok");
 	        jButton5.addActionListener(new java.awt.event.ActionListener() {
-	            public void actionPerformed(java.awt.event.ActionEvent evt) {
+	            @Override
+				public void actionPerformed(java.awt.event.ActionEvent evt) {
 	                jButton5ActionPerformed(evt);
 	            }
 	        });
@@ -286,7 +291,8 @@ public class Design extends javax.swing.JFrame{
 	       
 	        rOK.setText("ok");
 	        rOK.addActionListener(new java.awt.event.ActionListener() {
-	            public void actionPerformed(java.awt.event.ActionEvent evt) {
+	            @Override
+				public void actionPerformed(java.awt.event.ActionEvent evt) {
 	                try {
 						rOKActionPerformed(evt);
 					} catch (InvalidVehicleException e) {
@@ -372,7 +378,8 @@ public class Design extends javax.swing.JFrame{
 	        exitB.setText("Exit");
 	        exitB.setName("exitB"); // NOI18N
 	        exitB.addActionListener(new java.awt.event.ActionListener() {
-	            public void actionPerformed(java.awt.event.ActionEvent evt) {
+	            @Override
+				public void actionPerformed(java.awt.event.ActionEvent evt) {
 	                exitBActionPerformed(evt);
 	            }
 	        });
@@ -420,6 +427,7 @@ public class Design extends javax.swing.JFrame{
 	        pack();
 	    }// </editor-fold>                        
 	 	
+	    
 	    private void addBActionPerformed(java.awt.event.ActionEvent evt) {       //add main button..                                  
 	        // TODO add your handling code here:	    		    	
 	    	if(detailP.isVisible()) {
@@ -461,7 +469,7 @@ public class Design extends javax.swing.JFrame{
 	    	
 	    }                                        
 
-	    private void submitActionPerformed(java.awt.event.ActionEvent evt) throws InvalidVehicleException, InvalidSlotException {  //submit Button                          
+	    private void submitActionPerformed(java.awt.event.ActionEvent evt) throws InvalidVehicleException, InvalidSlotException, SQLException {  //submit Button                          
 	        // TODO add your handling code here:
 	    	String vehicleNo=vNo.getText();
 	    	String vehicleType=(String) vType.getSelectedItem();

@@ -1,15 +1,20 @@
 package com;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
-public class logic {
-
+public class Logic {
+	LogicCRUD gaddi = new LogicCRUD();
+	
 	ArrayList<Vehicle> twowheeler=new ArrayList<Vehicle>();
 	ArrayList<Vehicle> car=new ArrayList<Vehicle>();
 	ArrayList<Vehicle> truck=new ArrayList<Vehicle>();
 	int index=0, tindex=0, trindex=0; //count of arraylist....
-	public void addVehicle(String vNo, String vType, int slot) throws InvalidVehicleException, InvalidSlotException {
+	public void addVehicle(String vNo, String vType, int slot) throws InvalidVehicleException, InvalidSlotException, SQLException {
+		gaddi.connecting();
+		ResultSet rs = gaddi.fetchData();
 		Vehicle v=new Vehicle();//object creation...
 		
 		if(vType.equalsIgnoreCase("twowheeler")) {
@@ -19,7 +24,7 @@ public class logic {
 		
 		
 		if(slot<=40 && slot>0) {//to ensure that the slot is in between 1-40
-			if(twowheeler.isEmpty()) {//if the arraylist is empty
+			if(!rs.next()) {//if the arraylist is empty
 				v.setSlotNo(slot);
 			}else {//if not empty
 				for(int i=0; i<twowheeler.size(); i++) {

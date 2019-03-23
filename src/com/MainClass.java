@@ -1,6 +1,6 @@
 package com;
 
-public class mainClass {
+public class MainClass {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -8,7 +8,8 @@ public class mainClass {
 		
 		
 		 java.awt.EventQueue.invokeLater(new Runnable() {
-	         public void run() {
+	         @Override
+			public void run() {
 	             new Design().setVisible(true);
 	         }
 	     });
