@@ -32,7 +32,7 @@ public class LogicCRUD {
 		return rs;
 	}
 	
-	public String insertData(String vehicleNo, String vehicleType, String slotNo) throws SQLException {
+	public void insertData(Vehicle vehicle, Owner owner) throws SQLException {
 		String query="insert into parkingTable values(?,?,?,?)";
 		String ownerQuery="insert into ownerTable values(?,?,?,?)";
 		
@@ -41,9 +41,9 @@ public class LogicCRUD {
 		String timeStamp=dtf.format(now); 
 		
 		PreparedStatement statement=con.prepareStatement(query);//setting vehicle details..
-		statement.setString(1, vehicleNo);
-		statement.setString(2, vehicleType);
-		statement.setString(3, slotNo);
+		statement.setString(1, vehicle.getVehicleNo());
+		statement.setString(2, vehicle.getVehicleType());
+		statement.setInt(3, vehicle.getSlotNo());
 		statement.setString(4, timeStamp);
 		PreparedStatement ownerStatment=con.prepareStatement(ownerQuery);//setting owner details...
 		ownerStatment.setString(1, owner.getOwnerName());
@@ -53,7 +53,6 @@ public class LogicCRUD {
 		statement.executeUpdate();
 		ownerStatment.executeUpdate();
 //		con.close();
-		return vehicleNo;
 	}
 	
 	public ResultSet searchVehicle(String vehicleNo) throws SQLException {//retrieving vehicle details
@@ -83,7 +82,7 @@ public class LogicCRUD {
 		return rs;
 	}
 	
-	public String deleteData(String vehicleNo) throws SQLException {//deletes the data from sql...
+	public void deleteData(String vehicleNo) throws SQLException {//deletes the data from sql...
 		String query="delete from parkingTable where vehicleNo=?";
 		String ownerQuery="delete from ownerTable where vNo=?";
 		PreparedStatement statement=con.prepareStatement(query);
@@ -93,12 +92,13 @@ public class LogicCRUD {
 		statement.executeUpdate();
 		ownerStatement.executeUpdate();
 //		con.close();
-		return vehicleNo;
 	}
 	
 	public void disconnect() throws SQLException {
 		con.close();
 	}
+	
+	
 	
 	
 }
