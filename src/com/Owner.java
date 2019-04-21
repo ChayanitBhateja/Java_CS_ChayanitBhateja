@@ -1,6 +1,4 @@
-package com;
-
-import java.util.Scanner;
+package com;;
 
 public class Owner {
     String ownerName;

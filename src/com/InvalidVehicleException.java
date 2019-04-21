@@ -11,7 +11,10 @@ package com;
  */
 public class InvalidVehicleException extends Exception {
 
-    /**
+   
+	private static final long serialVersionUID = 1L;
+
+	/**
      * Creates a new instance of <code>InvalidVehicleException</code> without
      * detail message.
      */
