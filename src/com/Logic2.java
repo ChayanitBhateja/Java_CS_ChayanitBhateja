@@ -19,13 +19,22 @@ public class Logic2 {
 			Vehicle vehicle = new Vehicle(vNo, vType, slot);
 			Owner owner = new Owner(oName, oAddress, oEmail, oMobile);
 			while(rs.next()) {//will run until it will find database is having that vehicle no or not
-				if(vehicle.getVehicleNo().equals(rs.getString(1))) {//if vehicle no matched which should not be there...
+				if(vehicle.getVehicleType().equals(rs.getString(2))) {
+					if(vehicle.getVehicleNo().equals(rs.getString(1))) {//if vehicle no matched which should not be there...
 						throw new InvalidVehicleException();
+					}
+					if(vehicle.getSlotNo()<=0 || vehicle.getSlotNo()>=40 || vehicle.getSlotNo()==rs.getInt(3)) {//if vehicle slot is in between 1-40 or vehicle is parking on preoccupied slot or not
+						throw new InvalidSlotException();
+					}
 				}
 			}
 			//wrote outside the loop to not to duplicate the insertion..and inserting the data here..
 			try {
-				gaddi.insertData(vehicle, owner);
+				boolean flag=gaddi.insertData(vehicle, owner);
+				
+				if(flag==false) {
+					vNo="nothing";
+				}
 				
 				gaddi.disconnect();
 			}
@@ -38,7 +47,11 @@ public class Logic2 {
 			Vehicle vehicle = new Vehicle(vNo, vType, slot);
 			Owner owner = new Owner(oName, oAddress, oEmail, oMobile);
 			try {
-				gaddi.insertData(vehicle, owner);
+				boolean flag=gaddi.insertData(vehicle, owner);
+				
+				if(flag==false) {
+					vNo="nothing";
+				}
 				
 				gaddi.disconnect();
 			}
@@ -52,10 +65,10 @@ public class Logic2 {
 	}
 	
 	
-	public Set<Object> vehicleDetailsByNo(String vehicleNo) {
+	public HashSet<Object> vehicleDetailsByNo(String vehicleNo) {
 		
 		gaddi.connecting();
-		Set<Object> combinedSet = new HashSet<Object>();
+		HashSet<Object> combinedSet = new HashSet<Object>();
 		try {
 			ResultSet rs1 = gaddi.searchVehicle(vehicleNo);
  			ResultSet rs2 = gaddi.searchOwner(vehicleNo);

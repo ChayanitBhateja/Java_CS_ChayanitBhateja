@@ -32,9 +32,10 @@ public class LogicCRUD {
 		return rs;
 	}
 	
-	public void insertData(Vehicle vehicle, Owner owner) throws SQLException {
+	public boolean insertData(Vehicle vehicle, Owner owner) throws SQLException {
 		String query="insert into parkingTable values(?,?,?,?)";
-		String ownerQuery="insert into ownerTable values(?,?,?,?)";
+		String ownerQuery="insert into ownerTable values(?,?,?,?,?)";
+		boolean ff=false;
 		
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
 		LocalDateTime now = LocalDateTime.now();  
@@ -50,17 +51,23 @@ public class LogicCRUD {
 		ownerStatment.setString(2, owner.getOwnerAddress());
 		ownerStatment.setString(3, owner.getOwnerEmail());
 		ownerStatment.setLong(4, owner.getMobileNO());
-		statement.executeUpdate();
-		ownerStatment.executeUpdate();
+		ownerStatment.setString(5,vehicle.getVehicleNo());
+		boolean flag=statement.execute();
+		boolean flag1=ownerStatment.execute();
+		if(flag && flag1==true) {
+			ff=true;
+		}
+		
+		return ff;
 //		con.close();
 	}
 	
 	public ResultSet searchVehicle(String vehicleNo) throws SQLException {//retrieving vehicle details
 		String query="select * from parkingTable where vehicleNo=?";
 		PreparedStatement statement=con.prepareStatement(query);
-		statement.setString(1, query);
+		statement.setString(1, vehicleNo);
 		rs=statement.executeQuery();
-		con.close();
+//		con.close();
 		return rs;
 	}
 	
@@ -89,8 +96,8 @@ public class LogicCRUD {
 		statement.setString(1, vehicleNo);
 		PreparedStatement ownerStatement=con.prepareStatement(ownerQuery);
 		ownerStatement.setString(1, vehicleNo);
-		statement.executeUpdate();
-		ownerStatement.executeUpdate();
+		ownerStatement.executeUpdate();//have to delete from ownerTable because of foreign key vNo...
+		statement.executeUpdate();//afterwards can delete from here...
 //		con.close();
 	}
 	
