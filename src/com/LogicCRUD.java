@@ -89,6 +89,15 @@ public class LogicCRUD {
 		return rs;
 	}
 	
+	public ResultSet getOwnerDetails(String vehicleNo) throws SQLException {//retireving list of Owners..
+		String query="select * from ownerTable where vNo=?";
+		PreparedStatement statement=con.prepareStatement(query);
+		statement.setString(1, vehicleNo);
+		rs=statement.executeQuery();
+//		con.close();
+		return rs;
+	}
+	
 	public void deleteData(String vehicleNo) throws SQLException {//deletes the data from sql...
 		String query="delete from parkingTable where vehicleNo=?";
 		String ownerQuery="delete from ownerTable where vNo=?";
