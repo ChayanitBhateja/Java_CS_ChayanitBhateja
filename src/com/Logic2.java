@@ -92,20 +92,14 @@ public class Logic2 {
 		return combinedSet;
 	}
 	
-	public ArrayList<Object> vehicleDetailsByType(String vehicleType) {
+	public ArrayList<Vehicle> vehicleDetailsByType(String vehicleType) {
 		gaddi.connecting();
-		ArrayList<Object> list = new ArrayList<Object>();
+		ArrayList<Vehicle> list = new ArrayList<Vehicle>();
 		try {
 			ResultSet rs=gaddi.getVehicleDetails(vehicleType);
-			ResultSet rs1=gaddi.getOwnerDetails(rs.getString(1));
 			while(rs.next()) {
 				Vehicle vehicle = new Vehicle(rs.getString(1), rs.getString(2), rs.getInt(3));
 				list.add(vehicle);				
-			}
-			
-			while(rs1.next()) {
-				Owner owner = new Owner(rs1.getString(1), rs1.getString(2), rs1.getString(3), rs1.getLong(4));
-				list.add(owner);
 			}
 			gaddi.disconnect();
 		} catch (SQLException e) {

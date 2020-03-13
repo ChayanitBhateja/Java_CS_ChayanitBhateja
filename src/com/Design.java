@@ -313,7 +313,7 @@ public class Design extends javax.swing.JFrame{
 				}else {
 					HashSet<Object> results=gaddi.vehicleDetailsByNo(txtVehicleNo.getText());
 					Object[] result=results.toArray();
-					int anIndex=0;
+					int anIndex=1;
 					if(result.length==2) {	
 						Owner o=(Owner)result[0];//owner object indexed on [0]
 						txtONameSearch.setText(o.ownerName);
@@ -325,13 +325,13 @@ public class Design extends javax.swing.JFrame{
 						txtVNoSearch.setText(v.vehicleNo);
 						switch(v.vehicleType) {
 						case "TwoWheeler":
-							anIndex=0;
-							break;
-						case "Car":
 							anIndex=1;
 							break;
-						case "Truck":
+						case "Car":
 							anIndex=2;
+							break;
+						case "Truck":
+							anIndex=3;
 							break;
 						}
 						cmbVType.setSelectedIndex(anIndex);				
@@ -524,8 +524,6 @@ public class Design extends javax.swing.JFrame{
 		
 		JLabel lblChooseVehicleType = new JLabel("Choose Vehicle Type");
 		
-		table = new JTable();
-		
 		JComboBox<Object> comboBoxSearchType = new JComboBox<Object>();
 		comboBoxSearchType.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
@@ -536,26 +534,20 @@ public class Design extends javax.swing.JFrame{
 		JButton btnSubmit_1 = new JButton("Submit");
 		btnSubmit_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				gaddi.vehicleDetailsByType(comboBoxSearchType.getSelectedItem().toString());
 				 DefaultTableModel model = (DefaultTableModel) table.getModel();
-				 if(model.getRowCount()>0) {
-					 int i=0;
-					 while(i<model.getRowCount()) {
-						 model.removeRow(i);
-						 i++;
-					 }
-				 }
 				 String[] row=new String[7];
-				ArrayList<Object> list=gaddi.vehicleDetailsByType(comboBoxSearchType.getSelectedItem().toString());
-//				for (Vehicle vehicle : list) {
-//					row[0]=vehicle.getVehicleNo();
-//					row[1]=vehicle.getVehicleType();
-//					row[2]=String.valueOf(vehicle.getSlotNo());
-////					row[3]=vehicle.getOwnerObj().getOwnerName();
-////					row[4]=vehicle.getOwnerObj().getOwnerAddress();
-////					row[5]=String.valueOf(vehicle.getOwnerObj().getMobileNO());
-////					row[6]=vehicle.getOwnerObj().getOwnerEmail();
-//					model.addRow(row);
-//				}
+				ArrayList<Vehicle> list=gaddi.vehicleDetailsByType(comboBoxSearchType.getSelectedItem().toString());
+				for (Vehicle vehicle : list) {
+					row[0]=vehicle.getVehicleNo();
+					row[1]=vehicle.getVehicleType();
+					row[3]=String.valueOf(vehicle.getSlotNo());
+					row[4]=vehicle.getOwnerObj().getOwnerName();
+					row[5]=vehicle.getOwnerObj().getOwnerAddress();
+					row[6]=String.valueOf(vehicle.getOwnerObj().getMobileNO());
+					row[7]=vehicle.getOwnerObj().getOwnerEmail();
+					model.addRow(row);
+				}
 			}
 		});
 		
@@ -590,7 +582,7 @@ public class Design extends javax.swing.JFrame{
 					.addContainerGap())
 		);
 		
-		
+		table = new JTable();
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
