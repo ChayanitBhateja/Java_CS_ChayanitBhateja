@@ -538,31 +538,24 @@ public class Design extends javax.swing.JFrame{
 			public void actionPerformed(ActionEvent e) {
 				 DefaultTableModel model = (DefaultTableModel) table.getModel();
 				 if(model.getRowCount()>0) {
-					 for(int i=model.getRowCount()-1; i>=0; i--) {
+					 int i=0;
+					 while(i<model.getRowCount()) {
 						 model.removeRow(i);
+						 i++;
 					 }
 				 }
 				 String[] row=new String[7];
 				ArrayList<Object> list=gaddi.vehicleDetailsByType(comboBoxSearchType.getSelectedItem().toString());
-				for(int i=0; i<list.size(); i++) {
-					if((i%2)==0) {
-						Vehicle vehicle = (Vehicle) list.get(i);
-						row[0]=vehicle.getVehicleNo();
-						row[1]=vehicle.getVehicleType();
-						row[2]=String.valueOf(vehicle.getSlotNo());
-						
-					}
-					if((i%2)!=0) {
-						Owner owner = (Owner) list.get(i);
-						row[3]=owner.getOwnerName();
-						row[4]=owner.getOwnerAddress();
-						row[5]=String.valueOf(owner.getMobileNO());
-						row[6]=owner.getOwnerEmail();
-						model.addRow(row);
-					}
-					
-				}
-					
+//				for (Vehicle vehicle : list) {
+//					row[0]=vehicle.getVehicleNo();
+//					row[1]=vehicle.getVehicleType();
+//					row[2]=String.valueOf(vehicle.getSlotNo());
+////					row[3]=vehicle.getOwnerObj().getOwnerName();
+////					row[4]=vehicle.getOwnerObj().getOwnerAddress();
+////					row[5]=String.valueOf(vehicle.getOwnerObj().getMobileNO());
+////					row[6]=vehicle.getOwnerObj().getOwnerEmail();
+//					model.addRow(row);
+//				}
 			}
 		});
 		

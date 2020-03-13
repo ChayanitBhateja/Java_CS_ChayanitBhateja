@@ -73,17 +73,16 @@ public class Logic2 {
 			ResultSet rs1 = gaddi.searchVehicle(vehicleNo);
  			ResultSet rs2 = gaddi.searchOwner(vehicleNo);
  			
- 			while(rs2.next()) {
- 				Owner owner = new Owner(rs2.getString(1), rs2.getString(2), rs2.getString(3), rs2.getLong(4));
- 				combinedSet.add(owner);
- 			}
  			
  			while(rs1.next()) {
  				Vehicle vehicle = new Vehicle(rs1.getString(1), rs1.getString(2), rs1.getInt(3));
  				combinedSet.add(vehicle);
  			}
  			
- 			
+ 			while(rs2.next()) {
+ 				Owner owner = new Owner(rs2.getString(1), rs2.getString(2), rs2.getString(3), rs2.getLong(4));
+ 				combinedSet.add(owner);
+ 			}
  			gaddi.disconnect();
  			
 		} catch (SQLException e) {
@@ -98,12 +97,14 @@ public class Logic2 {
 		ArrayList<Object> list = new ArrayList<Object>();
 		try {
 			ResultSet rs=gaddi.getVehicleDetails(vehicleType);
-			while(rs.next()) {//checking if data is present in both resultsets
+			ResultSet rs1=gaddi.getOwnerDetails(rs.getString(1));
+			while(rs.next()) {
 				Vehicle vehicle = new Vehicle(rs.getString(1), rs.getString(2), rs.getInt(3));
-				ResultSet rs1=gaddi.getOwnerDetails(rs.getString(1));
-				rs1.next();
+				list.add(vehicle);				
+			}
+			
+			while(rs1.next()) {
 				Owner owner = new Owner(rs1.getString(1), rs1.getString(2), rs1.getString(3), rs1.getLong(4));
-				list.add(vehicle);
 				list.add(owner);
 			}
 			gaddi.disconnect();
