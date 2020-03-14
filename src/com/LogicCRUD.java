@@ -54,7 +54,7 @@ public class LogicCRUD {
 		ownerStatment.setString(5,vehicle.getVehicleNo());
 		boolean flag=statement.execute();
 		boolean flag1=ownerStatment.execute();
-		if(flag && flag1==true) {
+		if(flag && flag1) {
 			ff=true;
 		}
 		
@@ -81,7 +81,7 @@ public class LogicCRUD {
 	}
 	
 	public ResultSet getVehicleDetails(String vehicleType) throws SQLException {//retireving list of vehicles..
-		String query="select * from parkingTable where vehicleType=?";
+		String query="select * from parkingTable inner join ownerTable where vehicleType=?";
 		PreparedStatement statement=con.prepareStatement(query);
 		statement.setString(1, vehicleType);
 		rs=statement.executeQuery();

@@ -8,7 +8,7 @@ public class Connector {
 	Connection con;
 	public Connection connect() throws Exception {
 		Class.forName("com.mysql.jdbc.Driver");
-		con=DriverManager.getConnection("jdbc:mysql://localhost:3306/parkingDB","root","password");
+		con=DriverManager.getConnection("jdbc:mysql://localhost:3306/parkingDB?useSSL=false","root","password");
 		System.out.println("connection Established");
 		return con;
 	}

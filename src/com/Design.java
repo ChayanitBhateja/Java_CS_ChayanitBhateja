@@ -152,7 +152,7 @@ public class Design extends javax.swing.JFrame{
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String[] mandatory = {txtVehicleNo.getText(), comboBox.getSelectedItem().toString(), txtSlotAdd.getText(), txtONameAdd.getText(), txtAddressAdd.getText(), txtEmailNoAdd.getText(), txtMobileNoAdd.getText()};
+				String[] mandatory = {txtVehicleNoAdd.getText(), comboBox.getSelectedItem().toString(), txtSlotAdd.getText(), txtONameAdd.getText(), txtAddressAdd.getText(), txtEmailNoAdd.getText(), txtMobileNoAdd.getText()};
 				for(int i=0; i<3; i++) {
 					if(mandatory[i].isEmpty()) {
 						JOptionPane.showMessageDialog(null, "No data entered");
@@ -541,11 +541,11 @@ public class Design extends javax.swing.JFrame{
 				for (Vehicle vehicle : list) {
 					row[0]=vehicle.getVehicleNo();
 					row[1]=vehicle.getVehicleType();
-					row[3]=String.valueOf(vehicle.getSlotNo());
-					row[4]=vehicle.getOwnerObj().getOwnerName();
-					row[5]=vehicle.getOwnerObj().getOwnerAddress();
-					row[6]=String.valueOf(vehicle.getOwnerObj().getMobileNO());
-					row[7]=vehicle.getOwnerObj().getOwnerEmail();
+					row[2]=String.valueOf(vehicle.getSlotNo());
+					row[3]=vehicle.getOwnerObj().getOwnerName();
+					row[4]=vehicle.getOwnerObj().getOwnerAddress();
+					row[5]=String.valueOf(vehicle.getOwnerObj().getMobileNO());
+					row[6]=vehicle.getOwnerObj().getOwnerEmail();
 					model.addRow(row);
 				}
 			}

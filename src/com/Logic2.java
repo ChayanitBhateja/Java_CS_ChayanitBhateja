@@ -99,6 +99,8 @@ public class Logic2 {
 			ResultSet rs=gaddi.getVehicleDetails(vehicleType);
 			while(rs.next()) {
 				Vehicle vehicle = new Vehicle(rs.getString(1), rs.getString(2), rs.getInt(3));
+				Owner owner = new Owner(rs.getString(5), rs.getString(6), rs.getString(7), rs.getLong(8));
+				vehicle.setOwnerObj(owner);
 				list.add(vehicle);				
 			}
 			gaddi.disconnect();
